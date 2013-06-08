@@ -22,24 +22,10 @@ sigma = 0.3;
 %  Note: You can compute the prediction error using 
 %        mean(double(predictions ~= yval))
 %
-prevErr = bitmax ;
+
 cvals=[ 0.01, 0.03, 0.1, 0.3, 1.0, 3.0, 10.0, 30.0];
 sigmavals=cvals;
-n=numel(cvals);
-for i=1:n
-    for j=1:n
-        model = svmTrain(X, y, cvals(i), @(x1, x2) gaussianKernel(x1, x2, sigmavals(j)));
-        p = svmPredict(model,Xval);
-        err = mean (double(p ~= yval));
-        if err < prevErr
-            C = cvals(i);
-            sigma = sigmavals(j);
-            prevErr = err ;
-            %fprintf(['Best so far %f\n'], sigmavals);
-        end
-        
-    end
-end
+for i=1:numel
 
 
 
